@@ -1,214 +1,129 @@
-# AI Voice Agents Challenge - Starter Repository
+# Agent Starter for React
 
-Welcome to the **AI Voice Agents Challenge** by [murf.ai](https://murf.ai)!
+> 🎙️ **This is part of the AI Voice Agents Challenge by murf.ai**
+>
+> This frontend is designed to work with the Murf Falcon-powered backend for ultra-fast voice interactions.
+> See the [main README](../README.md) for complete setup instructions and challenge details.
 
-## About the Challenge
+This is a starter template for [LiveKit Agents](https://docs.livekit.io/agents) that provides a simple voice interface using the [LiveKit JavaScript SDK](https://github.com/livekit/client-sdk-js). It supports [voice](https://docs.livekit.io/agents/start/voice-ai), [transcriptions](https://docs.livekit.io/agents/build/text/), and [virtual avatars](https://docs.livekit.io/agents/integrations/avatar).
 
-We just launched **Murf Falcon** – the consistently fastest TTS API, and you're going to be among the first to test it out in ways never thought before!
+**Based on:** [livekit-examples/agent-starter-react](https://github.com/livekit-examples/agent-starter-react)
 
-**Build 10 AI Voice Agents over the course of 10 Days** along with help from our devs and the community champs, and win rewards!
+Also available for:
+[Android](https://github.com/livekit-examples/agent-starter-android) • [Flutter](https://github.com/livekit-examples/agent-starter-flutter) • [Swift](https://github.com/livekit-examples/agent-starter-swift) • [React Native](https://github.com/livekit-examples/agent-starter-react-native)
 
-### How It Works
+<picture>
+  <source srcset="./.github/assets/readme-hero-dark.webp" media="(prefers-color-scheme: dark)">
+  <source srcset="./.github/assets/readme-hero-light.webp" media="(prefers-color-scheme: light)">
+  <img src="./.github/assets/readme-hero-light.webp" alt="App screenshot">
+</picture>
 
-- One task to be provided everyday along with a GitHub repo for reference
-- Build a voice agent with specific personas and skills
-- Post on GitHub and share with the world on LinkedIn!
-
-## Repository Structure
-
-This is a **monorepo** that contains both the backend and frontend for building voice agent applications. It's designed to be your starting point for each day's challenge task.
-
-```
-falcon-tdova-nov25-livekit/
-├── backend/          # LiveKit Agents backend with Murf Falcon TTS
-├── frontend/         # React/Next.js frontend for voice interaction
-├── start_app.sh      # Convenience script to start all services
-└── README.md         # This file
-```
-
-### Backend
-
-The backend is based on [LiveKit's agent-starter-python](https://github.com/livekit-examples/agent-starter-python) with modifications to integrate **Murf Falcon TTS** for ultra-fast, high-quality voice synthesis.
-
-**Features:**
-
-- Complete voice AI agent framework using LiveKit Agents
-- Murf Falcon TTS integration for fastest text-to-speech
-- LiveKit Turn Detector for contextually-aware speaker detection
-- Background voice cancellation
-- Integrated metrics and logging
-- Complete test suite with evaluation framework
-- Production-ready Dockerfile
-
-[→ Backend Documentation](./backend/README.md)
-
-### Frontend
-
-The frontend is based on [LiveKit's agent-starter-react](https://github.com/livekit-examples/agent-starter-react), providing a modern, beautiful UI for interacting with your voice agents.
-
-**Features:**
+### Features:
 
 - Real-time voice interaction with LiveKit Agents
 - Camera video streaming support
 - Screen sharing capabilities
 - Audio visualization and level monitoring
-- Light/dark theme switching
-- Highly customizable branding and UI
+- Virtual avatar integration
+- Light/dark theme switching with system preference detection
+- Customizable branding, colors, and UI text via configuration
 
-[→ Frontend Documentation](./frontend/README.md)
+This template is built with Next.js and is free for you to use or modify as you see fit.
 
-## Quick Start
+### Project structure
 
-### Prerequisites
-
-Make sure you have the following installed:
-
-- Python 3.9+ with [uv](https://docs.astral.sh/uv/) package manager
-- Node.js 18+ with pnpm
-- [LiveKit CLI](https://docs.livekit.io/home/cli/cli-setup) (optional but recommended)
-- [LiveKit Server](https://docs.livekit.io/home/self-hosting/local/) for local development
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd falcon-tdova-nov25-livekit
+```
+agent-starter-react/
+├── app/
+│   ├── (app)/
+│   ├── api/
+│   ├── components/
+│   ├── fonts/
+│   ├── globals.css
+│   └── layout.tsx
+├── components/
+│   ├── livekit/
+│   ├── ui/
+│   ├── app.tsx
+│   ├── session-view.tsx
+│   └── welcome.tsx
+├── hooks/
+├── lib/
+├── public/
+└── package.json
 ```
 
-### 2. Backend Setup
+## Getting started
+
+> [!TIP]
+> If you'd like to try this application without modification, you can deploy an instance in just a few clicks with [LiveKit Cloud Sandbox](https://cloud.livekit.io/projects/p_/sandbox/templates/agent-starter-react).
+
+[![Open on LiveKit](https://img.shields.io/badge/Open%20on%20LiveKit%20Cloud-002CF2?style=for-the-badge&logo=external-link)](https://cloud.livekit.io/projects/p_/sandbox/templates/agent-starter-react)
+
+Run the following command to automatically clone this template.
 
 ```bash
-cd backend
-
-# Install dependencies
-uv sync
-
-# Copy environment file and configure
-cp .env.example .env.local
-
-# Edit .env.local with your credentials:
-# - LIVEKIT_URL
-# - LIVEKIT_API_KEY
-# - LIVEKIT_API_SECRET
-# - MURF_API_KEY (for Falcon TTS)
-# - GOOGLE_API_KEY (for Gemini LLM)
-# - DEEPGRAM_API_KEY (for Deepgram STT)
-
-# Download required models
-uv run python src/agent.py download-files
+lk app create --template agent-starter-react
 ```
 
-For LiveKit Cloud users, you can automatically populate credentials:
+Then run the app with:
 
 ```bash
-lk cloud auth
-lk app env -w -d .env.local
-```
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
-
-# Install dependencies
 pnpm install
-
-# Copy environment file and configure
-cp .env.example .env.local
-
-# Edit .env.local with the same LiveKit credentials
-```
-
-### 4. Run the Application
-
-#### Install livekit server
-
-```bash
-brew install livekit
-```
-
-You have two options:
-
-#### Option A: Use the convenience script (runs everything)
-
-```bash
-# From the root directory
-chmod +x start_app.sh
-./start_app.sh
-```
-
-This will start:
-
-- LiveKit Server (in dev mode)
-- Backend agent (listening for connections)
-- Frontend app (at http://localhost:3000)
-
-#### Option B: Run services individually
-
-```bash
-# Terminal 1 - LiveKit Server
-livekit-server --dev
-
-# Terminal 2 - Backend Agent
-cd backend
-uv run python src/agent.py dev
-
-# Terminal 3 - Frontend
-cd frontend
 pnpm dev
 ```
 
-Then open http://localhost:3000 in your browser!
+And open http://localhost:3000 in your browser.
 
-## Daily Challenge Tasks
+You'll also need an agent to speak with. Try our starter agent for [Python](https://github.com/livekit-examples/agent-starter-python), [Node.js](https://github.com/livekit-examples/agent-starter-node), or [create your own from scratch](https://docs.livekit.io/agents/start/voice-ai/).
 
-Each day, you'll receive a new task that builds upon your voice agent. The tasks will help you:
+## Configuration
 
-- Implement different personas and conversation styles
-- Add custom tools and capabilities
-- Integrate with external APIs
-- Build domain-specific agents (customer service, tutoring, etc.)
-- Optimize performance and user experience
+This starter is designed to be flexible so you can adapt it to your specific agent use case. You can easily configure it to work with different types of inputs and outputs:
 
-**Stay tuned for daily task announcements!**
+#### Example: App configuration (`app-config.ts`)
 
-## Documentation & Resources
+```ts
+export const APP_CONFIG_DEFAULTS: AppConfig = {
+  companyName: 'LiveKit',
+  pageTitle: 'LiveKit Voice Agent',
+  pageDescription: 'A voice agent built with LiveKit',
 
-- [Murf Falcon TTS Documentation](https://murf.ai/api/docs/text-to-speech/streaming)
-- [LiveKit Agents Documentation](https://docs.livekit.io/agents)
-- [Original Backend Template](https://github.com/livekit-examples/agent-starter-python)
-- [Original Frontend Template](https://github.com/livekit-examples/agent-starter-react)
+  supportsChatInput: true,
+  supportsVideoInput: true,
+  supportsScreenShare: true,
+  isPreConnectBufferEnabled: true,
 
-## Testing
+  logo: '/lk-logo.svg',
+  accent: '#002cf2',
+  logoDark: '/lk-logo-dark.svg',
+  accentDark: '#1fd5f9',
+  startButtonText: 'Start call',
 
-The backend includes a comprehensive test suite:
-
-```bash
-cd backend
-uv run pytest
+  // for LiveKit Cloud Sandbox
+  sandboxId: undefined,
+  agentName: undefined,
+};
 ```
 
-Learn more about testing voice agents in the [LiveKit testing documentation](https://docs.livekit.io/agents/build/testing/).
+You can update these values in [`app-config.ts`](./app-config.ts) to customize branding, features, and UI text for your deployment.
 
-## Contributing & Community
+> [!NOTE]
+> The `sandboxId` and `agentName` are for the LiveKit Cloud Sandbox environment.
+> They are not used for local development.
 
-This is a challenge repository, but we encourage collaboration and knowledge sharing!
+#### Environment Variables
 
-- Share your solutions and learnings on GitHub
-- Post about your progress on LinkedIn
-- Join the [LiveKit Community Slack](https://livekit.io/join-slack)
-- Connect with other challenge participants
+You'll also need to configure your LiveKit credentials in `.env.local` (copy `.env.example` if you don't have one):
 
-## License
+```env
+LIVEKIT_API_KEY=your_livekit_api_key
+LIVEKIT_API_SECRET=your_livekit_api_secret
+LIVEKIT_URL=https://your-livekit-server-url
+```
 
-This project is based on MIT-licensed templates from LiveKit and includes integration with Murf Falcon. See individual LICENSE files in backend and frontend directories for details.
+These are required for the voice agent functionality to work with your LiveKit project.
 
-## Have Fun!
+## Contributing
 
-Remember, the goal is to learn, experiment, and build amazing voice AI agents. Don't hesitate to be creative and push the boundaries of what's possible with Murf Falcon and LiveKit!
-
-Good luck with the challenge!
-
----
-
-Built for the AI Voice Agents Challenge by murf.ai
+This template is open source and we welcome contributions! Please open a PR or issue through GitHub, and don't forget to join us in the [LiveKit Community Slack](https://livekit.io/join-slack)!
